@@ -3,7 +3,7 @@ import React from 'react';
 function Page() {
   return (
     <div className='min-h-screen w-full text-white'>
-      <div className='max-w-4xl mx-auto px-4 py-12'>
+      <div className=' mx-auto px-4 py-12 bg-zinc-950 w-full text-center'>
         <h1 className='text-3xl font-bold mb-6'>Who am I?</h1>
         <p className='text-lg leading-relaxed'>
           I&apos;m a passionate programmer with a keen interest in web development and mobile apps. 

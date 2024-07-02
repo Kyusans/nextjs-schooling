@@ -5,7 +5,7 @@ import Carousel from 'react-bootstrap/Carousel';
 export default function Home() {
   return (
     <>
-      <div className='bg-zinc-800 '>
+      <div className='bg-zinc-950 '>
         <Carousel data-bs-theme="light">
           <Carousel.Item>
             <div className="flex items-center">
@@ -24,16 +24,16 @@ export default function Home() {
             </div>
           </Carousel.Item>
           <Carousel.Item>
-            <div className="flex items-center ">
-              <div className="relative w-1/2 h-96">
+            <div className="flex items-center">
+              <div className="relative w-1/4 h-96">
                 <Image
                   className="object-cover"
-                  src={"/assets/images/2.JPG"}
+                  src={"/assets/images/me.png"}
                   layout="fill"
                   alt="Second slide"
                 />
               </div>
-              <div className="w-1/2 p-4 text-white text-center">
+              <div className="w-1/2 p-4 text-white text-end">
                 <h1>Front End Developer</h1>
               </div>
             </div>

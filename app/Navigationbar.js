@@ -11,16 +11,19 @@ const Navigationbar = () => {
         </div> */}
         <div className="hidden md:flex space-x-4">
           <Link className='no-underline' href="/">
-            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Home</p>
+            <p className="text-gray-300 hover:bg-zinc-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Home</p>
           </Link>
           <Link className='no-underline' href="/who">
-            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Who am I?</p>
+            <p className="text-gray-300 hover:bg-zinc-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Who am I?</p>
           </Link>
-          <Link className='no-underline' href="/services">
-            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Services</p>
+          <Link className='no-underline' href="/skills">
+            <p className="text-gray-300 hover:bg-zinc-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Skills</p>
+          </Link>
+          <Link className='no-underline' href="/education">
+            <p className="text-gray-300 hover:bg-zinc-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Education</p>
           </Link>
           <Link className='no-underline' href="/contact">
-            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Contact</p>
+            <p className="text-gray-300 hover:bg-zinc-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Contact me</p>
           </Link>
         </div>
       </div>
