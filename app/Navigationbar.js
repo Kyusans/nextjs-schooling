@@ -13,8 +13,8 @@ const Navigationbar = () => {
           <Link className='no-underline' href="/">
             <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Home</p>
           </Link>
-          <Link className='no-underline' href="/about">
-            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">About</p>
+          <Link className='no-underline' href="/who">
+            <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Who am I?</p>
           </Link>
           <Link className='no-underline' href="/services">
             <p className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium no-underline">Services</p>
