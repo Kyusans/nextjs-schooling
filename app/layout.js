@@ -1,5 +1,8 @@
+// layout.js
 import { Inter } from "next/font/google";
 import "./globals.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import Navigationbar from "./Navigationbar";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,7 +14,12 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Navigationbar />
+        <div className="bg-zinc-900 min-h-screen w-full">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }
