@@ -1,69 +1,77 @@
-"use client";
-import Image from 'next/image';
-import Carousel from 'react-bootstrap/Carousel';
+"use client"
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
+import { Button, Card, FloatingLabel, Form } from 'react-bootstrap'
 
-export default function Home() {
+function Page() {
+  const [user, setUser] = useState("hello");
+  const [allUsers, setAllUsers] = useState([]);
+  const [password, setPassword] = useState("");
+  const router = useRouter();
+  const getAllUsers = async () => {
+    const url = "http://localhost/test/user.php";
+    const res = await axios.get(url);
+    setAllUsers(res.data);
+    console.log(res.data);
+  }
+  const handleLogin = async () => {
+    if (user === "" || password === "") {
+      alert("Please enter username and password");
+      return;
+    } else {
+      const userDetails = allUsers.find((users) => users.user === user && users.password === password);
+      if (userDetails) {
+        localStorage.setItem("user", userDetails.fullName);
+        router.push("/dashboard");
+      } else {
+        alert("Invalid username or password");
+      }
+    }
+    // const url = "http://localhost/test/user.php";
+    // const res = await axios.get(url, { params: { user, password } });
+    // console.log(res);
+    // if (res.data !== 0) {
+    //   localStorage.setItem("user", res.data.fullName);
+    //   router.push("/dashboard");
+    // } else {
+    //   alert("Invalid username or password");
+    // }
+  }
+
+  useEffect(() => {
+    getAllUsers();
+  }, [])
   return (
-    <>
-      <div className='bg-zinc-950 '>
-        <Carousel data-bs-theme="light">
-          <Carousel.Item>
-            <div className="flex items-center">
-              <div className="relative w-1/2 h-96">
-                <Image
-                  className="object-cover"
-                  src={"/assets/images/1.jpg"}
-                  layout="fill"
-                  alt="First slide"
-                />
-              </div>
-              <div className="w-1/2 p-5 text-white text-center">
-                <h3>It&apos;s me</h3>
-                <h1>Mel Macario</h1>
-              </div>
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="flex items-center">
-              <div className="relative w-1/4 h-96">
-                <Image
-                  className="object-cover"
-                  src={"/assets/images/me.png"}
-                  layout="fill"
-                  alt="Second slide"
-                />
-              </div>
-              <div className="w-1/2 p-4 text-white text-end">
-                <h1>Front End Developer</h1>
-              </div>
-            </div>
-          </Carousel.Item>
-          <Carousel.Item>
-            <div className="flex items-center">
-              <div className="relative w-1/2 h-96">
-                <Image
-                  className="object-cover"
-                  src={"/assets/images/3.JPG"}
-                  layout="fill"
-                  alt="Third slide"
-                />
-              </div>
-              <div className="w-1/2 p-4 text-white text-center">
-                <h1>Back End Developer</h1>
-              </div>
-            </div>
-          </Carousel.Item>
-        </Carousel>
-      </div>
-
-      <div className='text-center mt-5'>
-        <p className="mt-3 italic">
-          &ldquo;If you break your legs, it&apos;s hard to cook orangutan. So don&apos;t break your legs.&rdquo;<br />
-          <span className="font-bold und">- Mel Macario</span>
-        </p>
-      </div>
-
-
-    </>
-  );
+    <div className='d-flex justify-content-center align-items-center h-screen text-center'>
+      <Card bg='dark' style={{ width: '18rem' }}>
+        <Card.Header>
+          <Card.Title className='text-white'><h2>Login</h2></Card.Title>
+        </Card.Header>
+        <Card.Body>
+          <Form.Select className='mb-3' value={user} onChange={(e) => setUser(e.target.value)}>
+            <option>Open this select menu</option>
+            {allUsers.map((user, index) => <option key={index} value={user.user}>{user.user}</option>)}
+            {/* 
+            <option value="Pitok">Pitok</option>
+            <option value="Kulas">Kulas</option>
+            <option value="Sabel">Sabel</option> */}
+          </Form.Select>
+          <Form>
+            <FloatingLabel label="Password" className='mb-3'>
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </FloatingLabel>
+            <Button onClick={handleLogin}>Login</Button>
+          </Form>
+        </Card.Body>
+      </Card>
+    </div>
+  )
 }
+
+export default Page
