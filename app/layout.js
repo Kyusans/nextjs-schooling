@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Navigationbar />
+        {/* <Navigationbar /> */}
         <div className="bg-zinc-900 min-h-screen w-full text-white">
           {children}
         </div>
