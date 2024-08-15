@@ -7,6 +7,7 @@ import { ModeToggle } from "@/components/ui/mode-toggle";
 import { useEffect, useState } from "react";
 import ProductTable from "./ProductTable";
 import axios from "axios";
+import Spinner from "@/components/ui/spinner";
 
 export default function Dashboard() {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,12 +16,12 @@ export default function Dashboard() {
   // add product modal
   const [showAddProductModal, setShowAddProductModal] = useState(false);
   const openAddProductModal = () => { setShowAddProductModal(true) };
-  const closeAddProductModal = async () => { 
-    //await get products
-    setShowAddProductModal(false) 
+  const closeAddProductModal = async () => {
+    await getProduct();
+    setShowAddProductModal(false)
   };
 
-  const getProduct = async () =>{
+  const getProduct = async () => {
     setIsLoading(true);
     try {
       const url = localStorage.getItem("url") + "get_product.php";
@@ -32,13 +33,15 @@ export default function Dashboard() {
       alert("There was an error occured");
       console.log("error: ", error);
     } finally {
-      setIsLoading(false);
+      setTimeout(() => {
+        setIsLoading(false);
+      }, [500])
     }
   }
 
   useEffect(() => {
     getProduct();
-  },[])
+  }, [])
 
   return (
     <div className="flex min-h-screen w-full flex-col bg-background ">
@@ -49,23 +52,27 @@ export default function Dashboard() {
         </header>
         <main>
           <div className="flex justify-center sm:px-6 sm:py-0 md:gap-8">
-            <Card className="lg:w-2/3 md:w-full ">
-              <CardHeader>
-                <CardTitle>Products</CardTitle>
-                <CardDescription>
-                  Manage and view your products here
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ProductTable/>
-              </CardContent>
-              {/* <CardFooter>
-                  <div className="text-xs text-muted-foreground">
-                    Showing <strong>1-10</strong> of <strong>32</strong>{" "}
-                    products
-                  </div>
-                </CardFooter> */}
-            </Card>
+            {isLoading ? <Spinner /> :
+              <>
+                <Card className="lg:w-2/3 md:w-full ">
+                  <CardHeader>
+                    <CardTitle>Products</CardTitle>
+                    <CardDescription>
+                      Manage and view your products here
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ProductTable products={products} />
+                  </CardContent>
+                  {/* <CardFooter>
+                    <div className="text-xs text-muted-foreground">
+                      Showing <strong>1-10</strong> of <strong>32</strong>{" "}
+                      products
+                    </div>
+                  </CardFooter> */}
+                </Card>
+              </>
+            }
           </div>
 
 
