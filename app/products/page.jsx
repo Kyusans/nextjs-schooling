@@ -21,7 +21,7 @@ export default function Dashboard() {
   };
   const closeAddProductModal = async (status) => {
     setShowAddProductModal(false)
-    if(status === true){
+    if (status === true) {
       getProduct();
     }
   };
@@ -53,7 +53,7 @@ export default function Dashboard() {
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <header className="xl:mx-80 sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
             <ModeToggle />
-            <Button onClick={openAddProductModal}><CirclePlus className="h-5 w-5 mr-1" /> Add Products </Button>
+            <Button  onClick={openAddProductModal}><CirclePlus className="h-5 w-5 mr-1" /> Add Products </Button>
           </header>
           <main>
             <div className="flex justify-center sm:px-6 sm:py-0 md:gap-8">
@@ -67,7 +67,7 @@ export default function Dashboard() {
                       </CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <ProductTable products={products} />
+                      <ProductTable data={products} />
                     </CardContent>
                     {/* <CardFooter>
                     <div className="text-xs text-muted-foreground">

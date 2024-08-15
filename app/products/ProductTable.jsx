@@ -16,15 +16,9 @@ function ProductTable({ data }) {
             {products &&
               <TableRow>
                 <TableHead>Name</TableHead>
-                <TableHead>
-                  Price
-                </TableHead>
-                <TableHead>
-                  Date
-                </TableHead>
-                <TableHead className="text-end">
-                  Time
-                </TableHead>
+                <TableHead className="text-end">Price</TableHead>
+                <TableHead className="text-center">Date</TableHead>
+                <TableHead className="text-end">Time</TableHead>
                 <TableHead>
                   <span className="sr-only">Actions</span>
                 </TableHead>
@@ -35,9 +29,9 @@ function ProductTable({ data }) {
             {products.map((product, index) => (
               <TableRow key={index}>
                 <TableCell>{product.prod_name}</TableCell>
-                <TableCell>{product.prod_price}</TableCell>
-                <TableCell>{formatDates(product.prod_date)}</TableCell>
-                <TableCell className="text-end">{formatTime(product.prod_time)}</TableCell>
+                <TableCell className="text-end">{product.prod_price}</TableCell>
+                <TableCell className="text-center">{formatDates(product.prod_date)}</TableCell>
+                <TableCell className="text-end">{formatTime(product.prod_date)}</TableCell>
               </TableRow>
             ))}
 

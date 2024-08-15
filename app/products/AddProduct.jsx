@@ -2,13 +2,14 @@
 import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import axios from 'axios';
 import { toast } from 'sonner';
+import Spinner from '@/components/ui/spinner';
 
 const formSchema = z.object({
   name: z.string().min(1, { message: 'This field is required' }),
@@ -25,6 +26,7 @@ const formSchema = z.object({
 });
 
 function AddProduct({ show, onHide }) {
+  const [isLoading, setIsLoading] = useState()
   const form = useForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,21 +41,24 @@ function AddProduct({ show, onHide }) {
   };
 
   const onSubmit = async (values) => {
+    setIsLoading(true);
     try {
       console.log(values);
       const url = localStorage.getItem("url") + "add_product.php";
       const formData = new FormData();
       formData.append("json", JSON.stringify(values));
-      const res = axios.post(url, formData);
+      const res = await axios.post(url, formData);
       console.log(res);
-      if (res.data === 1) {
+      if (res.data !== 0) {
         toast.success("Product added successfully");
         form.reset();
         onHide(true);
       }
     } catch (error) {
-      toast.error("Network Error");
+      toast.error("Network Error"); 
       console.log("AddProduct.jsx => onSubmit()", error);
+    } finally{
+      setIsLoading(false);
     }
 
   }
@@ -99,7 +104,7 @@ function AddProduct({ show, onHide }) {
               />
               <div className='text-end'>
                 <Button type="button" className="mr-2" onClick={handleClose} variant="destructive">Cancel</Button>
-                <Button type="submit">Submit</Button>
+                <Button type="submit" disabled={isLoading}>{isLoading && <Spinner />} Submit</Button>
               </div>
             </form>
           </Form>
