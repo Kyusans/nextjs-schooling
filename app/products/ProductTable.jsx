@@ -1,35 +1,56 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-function ProductTable({products}) {
+import { formatDates, formatTime } from './page';
+import { Separator } from '@/components/ui/separator';
+function ProductTable({ data }) {
+  const [products, setProducts] = useState([]);
+  useEffect(() => {
+    setProducts(Array.isArray(data) ? data : []);
+  }, [data]);
   return (
-    <div>
-      <Table >
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead className="hidden md:table-cell">
-              Price
-            </TableHead>
-            <TableHead className="text-end">
-              Created at
-            </TableHead>
-            <TableHead>
-              <span className="sr-only">Actions</span>
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {products.map((product, index) => (
-            <TableRow key={index}>
-              <TableCell>{product.prod_name}</TableCell>
-              <TableCell className="hidden md:table-cell">{product.prod_price}</TableCell>
-              <TableCell className="text-end">{product.prod_date}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+    <>
+      {products.length > 0 ?
+        (<Table>
+          <TableHeader>
+            {products &&
+              <TableRow>
+                <TableHead>Name</TableHead>
+                <TableHead>
+                  Price
+                </TableHead>
+                <TableHead>
+                  Date
+                </TableHead>
+                <TableHead className="text-end">
+                  Time
+                </TableHead>
+                <TableHead>
+                  <span className="sr-only">Actions</span>
+                </TableHead>
+              </TableRow>
+            }
+          </TableHeader>
+          <TableBody>
+            {products.map((product, index) => (
+              <TableRow key={index}>
+                <TableCell>{product.prod_name}</TableCell>
+                <TableCell>{product.prod_price}</TableCell>
+                <TableCell>{formatDates(product.prod_date)}</TableCell>
+                <TableCell className="text-end">{formatTime(product.prod_time)}</TableCell>
+              </TableRow>
+            ))}
+
+          </TableBody>
+        </Table>) :
+        (
+          <>
+            <Separator className="mb-3" />
+            <p className="text-center">No products yet</p>
+          </>
+        )
+      }
+    </>
   )
 }
 
